@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative News Feed</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        #auth-area, #post-area, #messages-list { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .message-item { padding: 10px 0; border-bottom: 1px dashed #eee; }
+    </style>
+</head>
+<body>
+    <h1>Collaborative News Feed</h1>
+
+    <div id="auth-area">
+        <p>Loading user status...</p>
+    </div>
+
+    <div id="post-area" style="display:none;">
+        <h3>Post a New Message</h3>
+        <form id="message-form">
+            <input type="text" id="message-input" placeholder="Your status or info" required style="width: 80%;">
+            <button type="submit">Post</button>
+        </form>
+    </div>
+
+    <div id="messages-list">
+        <h3>Recent Messages</h3>
+        </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="app.js"></script>
+</body>
+</html>
