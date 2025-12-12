@@ -1,0 +1,53 @@
+/* Global layout */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fafafa;
+}
+
+/* Sections */
+#auth-area, #post-area, #messages-list {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Inputs */
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Buttons */
+button {
+    padding: 8px 14px;
+    border: none;
+    background: #2888ff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1766cc;
+}
+
+/* Message item */
+.message-item {
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.message-item:last-child {
+    border-bottom: none;
+}

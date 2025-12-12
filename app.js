@@ -1,7 +1,4 @@
-// app.js
-
-// 1. PROJECT CONFIGURATION (Team Task)
-// Use the config object you retrieved
+// PROJECT CONFIGURATION
 const firebaseConfig = {
     apiKey: "AIzaSyAJIiR_Rl09z2uBBXaS1lM69iRIbYa0dr8",
     authDomain: "it3-firebase-42212.firebaseapp.com",
@@ -12,21 +9,21 @@ const firebaseConfig = {
     measurementId: "G-XXDNTNQLYC"
 };
 
-// Initialize Firebase App
+// Initialization of the Firebase App
 firebase.initializeApp(firebaseConfig);
 
-// Initialize Services
+// Initialization of Services
 const auth = firebase.auth(); 
 const db = firebase.firestore(); 
 
-const messagesCollection = db.collection("messages"); // Name your collection "messages" [cite: 1038]
+const messagesCollection = db.collection("messages"); 
 
 function handleSignUp() {
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
     if (!email || !password) return alert('Please enter both email and password.');
 
-    auth.createUserWithEmailAndPassword(email, password) // Implement sign-up [cite: 1025]
+    auth.createUserWithEmailAndPassword(email, password) // Implement sign-up
         .then(() => alert('Sign up successful!'))
         .catch(error => alert(`Sign up failed: ${error.message}`));
 }
@@ -36,16 +33,16 @@ function handleLogin() {
     const password = document.getElementById('login-password').value;
     if (!email || !password) return alert('Please enter both email and password.');
 
-    auth.signInWithEmailAndPassword(email, password) // Implement login [cite: 1026]
+    auth.signInWithEmailAndPassword(email, password) // Implement login
         .catch(error => alert(`Login failed: ${error.message}`));
 }
 
-window.handleLogout = function() { // Attach to window for easy HTML access
-    auth.signOut() // Handle logout [cite: 1027]
+window.handleLogout = function() { 
+    auth.signOut() // Handle logout
         .catch(error => console.error("Logout failed:", error.message));
 }
 
-// Dynamically update UI based on authentication state [cite: 1028, 1029]
+// Dynamically update UI based on authentication state
 auth.onAuthStateChanged((user) => {
     const authArea = document.getElementById('auth-area');
     const postArea = document.getElementById('post-area');
@@ -56,7 +53,7 @@ auth.onAuthStateChanged((user) => {
             <p>Logged in as: <strong>${user.email}</strong></p>
             <button onclick="handleLogout()">Logout</button>
         `;
-        postArea.style.display = 'block'; // Show posting section [cite: 1029]
+        postArea.style.display = 'block'; // Show posting section
     } else {
         // User is signed out
         authArea.innerHTML = `
@@ -71,7 +68,7 @@ auth.onAuthStateChanged((user) => {
                 <button onclick="handleSignUp()">Sign Up</button>
             </div>
         `;
-        postArea.style.display = 'none'; // Hide posting section [cite: 1029]
+        postArea.style.display = 'none'; // Hide posting section
     }
 });
 
@@ -86,12 +83,12 @@ messageForm.addEventListener('submit', (e) => {
     const messageContent = messageInput.value.trim();
 
     if (user && messageContent) {
-        // Save message details to Firestore [cite: 1038]
+        // Save message details to Firestore
         messagesCollection.add({
             message: messageContent,
-            userId: user.uid, // Retrieve user ID [cite: 1036]
-            authorEmail: user.email, // Retrieve email [cite: 1036]
-            timestamp: firebase.firestore.FieldValue.serverTimestamp() // Add timestamp [cite: 1037]
+            userId: user.uid, // Retrieve user ID 
+            authorEmail: user.email, // Retrieve email 
+            timestamp: firebase.firestore.FieldValue.serverTimestamp() // Add timestamp
         })
         .then(() => {
             messageInput.value = ''; // Clear input
@@ -123,14 +120,14 @@ function renderMessage(doc) {
     return div;
 }
 
-// Real-time Message Listener using onSnapshot [cite: 1047]
+// Real-time Message Listener using onSnapshot
 messagesCollection
-    .orderBy("timestamp", "desc") // Order messages by timestamp (most recent first) [cite: 1045]
+    .orderBy("timestamp", "desc") // Order messages by timestamp (most recent first)
     .onSnapshot((snapshot) => {
         // Clear the list area
         messagesList.innerHTML = '<h3>Recent Messages</h3>'; 
         
-        // Dynamically create HTML elements for each message [cite: 1046]
+        // Dynamically create HTML elements for each message
         snapshot.forEach((doc) => {
             messagesList.appendChild(renderMessage(doc));
         });
